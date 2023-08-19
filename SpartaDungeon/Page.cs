@@ -7,11 +7,11 @@
 		protected string info;
 		private List<string> option;
 
-		protected enum Type
+		public enum Type
 		{
-			MAIN,
-			STATUS,
-			INVENTORY
+			Main,
+			Status,
+			Inventory
 		}
 
 		public Page()
@@ -44,7 +44,7 @@
 	{
 		public Main()
 		{
-			type = (int)Page.Type.MAIN;
+			type = (int)Page.Type.Main;
 			typeName = "메인 화면";
 			info = "스파르타 마을에 오신 여러분 환영합니다.\n"
 					+ "이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.";
@@ -59,7 +59,7 @@
 	{
 		public Status()
 		{
-			type = (int)Page.Type.STATUS;
+			type = (int)Page.Type.Status;
 			typeName = "상태 보기";
 			info = "상태 보기\n캐릭터의 정보가 표시됩니다.";
 
@@ -74,20 +74,20 @@
 
 		protected enum Type
 		{
-			MAIN,
-			EQUIP
+			Main,
+			Equip
 		}
 
 		public Inventory()
 		{
-			base.type = (int)Page.Type.INVENTORY;
+			base.type = (int)Page.Type.Inventory;
 			base.typeName = "인벤토리";
 			info = "보유 중인 아이템을 관리할 수 있습니다.";
 
 			AddOption("장착 관리");
 			AddOption("나가기");
 
-			this.type = (int)Inventory.Type.MAIN;
+			this.type = (int)Inventory.Type.Main;
 		}
 	}
 
@@ -96,7 +96,7 @@
 		public Equipment()
 		{
 			typeName = "장착 관리";
-			base.type = (int)Inventory.Type.EQUIP;
+			base.type = (int)Inventory.Type.Equip;
 		}
 
 	}

@@ -7,7 +7,7 @@ namespace SpartaDungeon
 		{
 		}
 
-		public int ShowPage(Page page)
+		public int PrintPage(Page page)
 		{
 			page.WriteType();
 			page.WriteInfo();
@@ -19,7 +19,8 @@ namespace SpartaDungeon
 			{
 				input = ReadInput(page);
 				if (input != Define.wrongInput)
-					return Define.wrongInput;
+					return input;
+				
 			}
 		}
 
