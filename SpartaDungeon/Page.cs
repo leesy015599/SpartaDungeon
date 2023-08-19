@@ -5,7 +5,7 @@
 		protected int type;
 		protected string typeName;
 		protected string info;
-		private List<string> option;
+		private List<string> optionList;
 
 		public enum Type
 		{
@@ -16,17 +16,17 @@
 
 		public Page()
 		{
-			option = new();
+			optionList = new();
 		}
 
 		protected void AddOption(string newOption)
 		{
-			option.Add(newOption);
+			optionList.Add(newOption);
 		}
 
 		public int ListSize()
 		{
-			return (option.Count);
+			return (optionList.Count);
 		}
 
 		public void WriteInfo()
@@ -37,6 +37,16 @@
 		public void WriteType()
 		{
 			Console.WriteLine(typeName);
+		}
+
+		public void WriteOptions()
+		{
+			int optionCount = 0;
+
+			foreach (string option in this.optionList)
+			{
+				Console.WriteLine($"{optionCount++}. {option}");
+			}
 		}
 	}
 

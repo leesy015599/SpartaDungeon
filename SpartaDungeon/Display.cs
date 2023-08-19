@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.InteropServices;
+
 namespace SpartaDungeon
 {
 	public class Display
@@ -12,6 +14,7 @@ namespace SpartaDungeon
 			page.WriteType();
 			page.WriteInfo();
 			Console.WriteLine();
+			page.WriteOptions();
 
 			int input;
 
