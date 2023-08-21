@@ -5,6 +5,17 @@ static class Define
     public const int wrongInput = -1;
 }
 
+public class Default
+{
+    static public Character SetCharacter()
+    {
+        Character character = new();
+
+
+
+    }
+}
+
 class Program
 {
     static int currentPageType;

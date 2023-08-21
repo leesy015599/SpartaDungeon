@@ -3,11 +3,25 @@
 	public class Page
 	{
 		protected int type;
-		protected string typeName;
 		protected string info;
 		private List<string> optionList;
 
-		public enum Type
+		public int Type
+		{
+			get { return type; }
+		}
+
+		public string Info
+		{
+			get { return info; }
+		}
+
+		public List<string> OptionList
+		{
+			get { return optionList; }
+		}
+
+		public enum TypeName
 		{
 			Main,
 			Status,
@@ -27,26 +41,6 @@
 		public int ListSize()
 		{
 			return (optionList.Count);
-		}
-
-		public void WriteInfo()
-		{
-			Console.WriteLine(info);
-		}
-
-		public void WriteType()
-		{
-			Console.WriteLine(typeName);
-		}
-
-		public void WriteOptions()
-		{
-			int optionCount = 0;
-
-			foreach (string option in this.optionList)
-			{
-				Console.WriteLine($"{optionCount++}. {option}");
-			}
 		}
 	}
 

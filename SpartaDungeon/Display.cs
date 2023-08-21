@@ -1,20 +1,21 @@
-﻿using System;
-using System.Runtime.InteropServices;
-
-namespace SpartaDungeon
+﻿namespace SpartaDungeon
 {
 	public class Display
 	{
-		public Display()
-		{
-		}
+		// constructor
+		public Display() {}
 
+		// method
 		public int PrintPage(Page page)
 		{
-			page.WriteType();
-			page.WriteInfo();
-			Console.WriteLine();
-			page.WriteOptions();
+			Console.WriteLine((Page.TypeName)(page.Type));
+			Console.WriteLine(page.Info);
+			Console.WriteLine("");
+			int optionCount = 0;
+			foreach (string option in page.OptionList)
+			{
+				Console.WriteLine($"{optionCount++}. {option}");
+			}
 
 			int input;
 
