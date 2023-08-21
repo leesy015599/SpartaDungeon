@@ -4,6 +4,7 @@
 	{
 		// private field
 		private int _type;
+		private string _pageName;
 		private string _info;
 		private List<string> _optionList;
 
@@ -16,6 +17,12 @@
 				if ((-1 < value) && (value < int.MaxValue))
 					_type = value;
 			}
+		}
+
+		public string PageName
+		{
+			get { return _pageName; }
+			set { _pageName = value; }
 		}
 
 		public string Info
@@ -41,6 +48,7 @@
 		// constructor
 		public Page()
 		{
+			_pageName = "";
 			_info = "";
 			_optionList = new();
 		}
@@ -88,6 +96,7 @@
 		private void SetStatus()
 		{
 			_type = (int)Page.TypeName.Status;
+			_pageName = "상태 보기";
 			_info = "캐릭터의 정보가 표시됩니다.";
 			AddOption("나가기");
 		}
@@ -95,6 +104,7 @@
 		private void SetInventory()
 		{
 			_type = (int)Page.TypeName.Inventory;
+			_pageName = "인벤토리";
 			_info = "보유 중인 아이템을 관리할 수 있습니다.";
 			AddOption("장착 관리");
 			AddOption("나가기");
@@ -103,6 +113,9 @@
 		private void SetEquipment()
 		{
 			_type = (int)Page.TypeName.Equipment;
+			// 경로라고 해야하나,, pageName을 리스트로 구현하는게 나을까?
+			_pageName = "인벤토리 - 장착 관리";
+			_info = "인벤토리 - 장착 관리\n보유 중인 아이템을 관리할 수 있습니다.";
 			AddOption("나가기");
 		}
 	}

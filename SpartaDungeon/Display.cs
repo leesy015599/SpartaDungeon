@@ -2,23 +2,32 @@
 {
 	public class Display
 	{
-		// constructor
-		public Display() {}
-
 		// method
 		public int PrintPage(Page page)
 		{
-			Console.WriteLine((Page.TypeName)(page.Type));
+			if (page.PageName.Length != 0)
+				Console.WriteLine(page.PageName);
 			Console.WriteLine(page.Info);
 			Console.WriteLine("");
 
-			int optionCount = 0;
+			// 여기 페이지별로 다르게 표시,,
 
-			foreach (string option in page.OptionList)
+			// 마지막 옵션은 항상 페이지에서 탈출하는 선택지. 항상 0이 되도록.
+			// 게임 종료, 나가기, 뒤로 가기, 취소 등.
+			if (page.CountOption() > 1)
 			{
-				Console.WriteLine($"{optionCount++}. {option}");
+				int optionCount = 1;
+				foreach (string option in page.OptionList)
+				{
+					Console.WriteLine($"{optionCount++}. {option}");
+					if (optionCount == page.CountOption())
+						break;
+				}
 			}
+			int lastOptionIndex = page.CountOption() - 1;
+			Console.WriteLine($"0. {page.OptionList[lastOptionIndex]}");
 
+			// 사용자의 선택지 입력
 			int input;
 
 			while (true)
@@ -33,14 +42,17 @@
 		private int ReadInput(Page page)
 		{
 			Console.Write("원하시는 행동을 입력해주세요.\n>>");
-			string input = Console.ReadLine();
+			
+			string? input = Console.ReadLine();
+			if (input == null)
+				return Define.wrongInput;
 			if (input.Length == 1)
 			{
 				int parsedInput;
 				if (int.TryParse(input, out parsedInput))
 				{
 					if ((0 <= parsedInput)
-						&& (parsedInput < page.OptionCount()))
+						&& (parsedInput < page.CountOption()))
 					{
 						return parsedInput;
 					}
