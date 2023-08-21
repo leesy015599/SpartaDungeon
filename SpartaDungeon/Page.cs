@@ -99,7 +99,7 @@
 			_type = (int)Page.TypeName.Status;
 			_pageName = "상태 보기";
 			_info = "캐릭터의 정보가 표시됩니다.";
-			AddOption(new Option((int)Option.TypeName.Main, "나가기"));
+			AddOption(new Option((int)Option.TypeName.PreviousPage, "나가기"));
 		}
 
 		private void SetInventory()
@@ -107,7 +107,7 @@
 			_type = (int)Page.TypeName.Inventory;
 			_pageName = "인벤토리";
 			_info = "보유 중인 아이템을 관리할 수 있습니다.";
-			AddOption(new Option((int)Option.TypeName.Main, "나가기"));
+			AddOption(new Option((int)Option.TypeName.PreviousPage, "나가기"));
 			AddOption(new Option((int)Option.TypeName.Equipment, "장착 관리"));
 		}
 
@@ -117,7 +117,7 @@
 			// 경로라고 해야하나,, pageName을 리스트로 구현하는게 나을까?
 			_pageName = "장착 관리";
 			_info = "보유 중인 아이템을 관리할 수 있습니다.";
-			AddOption(new Option((int)Option.TypeName.Inventory, "나가기"));
+			AddOption(new Option((int)Option.TypeName.PreviousPage, "나가기"));
 		}
 	}
 }

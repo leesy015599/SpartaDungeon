@@ -32,15 +32,14 @@ namespace SpartaDungeon
 
 		private void WriteHistory(Stack<Page> history)
 		{
-			Page currentPage = new();
-			if (history.TryPeek(out currentPage)) // 이거 왜이럼?
-			{
-				history.Pop();
-				WriteHistory(history);
-			}
-			else
+			if (history.TryPeek(out _) == false)
 				return ;
+			Page currentPage;
+			currentPage = history.Peek();
+			history.Pop();
+			WriteHistory(history);
 			Console.Write($" > {currentPage.PageName}");
+			history.Push(currentPage);
 		}
 
 		public int ReadInput(Page page)

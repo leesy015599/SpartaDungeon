@@ -44,19 +44,20 @@ namespace SpartaDungeon
 			Name = name;
 		}
 
-		private void GoMain()
+		public static int GoPage(int type)
 		{
-
-		}
-
-		private void GoStatus()
-		{
-
-		}
-
-		private void GoInventory()
-		{
-
+			switch ((Page.TypeName)type)
+			{
+				case Page.TypeName.Main:
+					return (int)Page.TypeName.Main;
+				case Page.TypeName.Status:
+					return (int)Page.TypeName.Status;
+				case Page.TypeName.Inventory:
+					return (int)Page.TypeName.Inventory;
+				case Page.TypeName.Equipment:
+					return (int)Page.TypeName.Equipment;
+			}
+			return (int)Page.TypeName.Main;
 		}
 	}
 }
