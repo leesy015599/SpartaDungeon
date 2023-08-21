@@ -53,7 +53,11 @@
 		}
 
 		// constructor
-		private Item() {}
+		private Item()
+		{
+			_name = "";
+			_info = "";
+		}
 
 		public Item(string name, int strikingPower, int defensivePower,
 					int hitPoint, int price, string info)

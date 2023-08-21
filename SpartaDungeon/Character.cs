@@ -84,6 +84,11 @@
         // constructor
         public Character()
         {
+            // Nullable로 바꾸긴 싫어서 이렇게 해뒀는데 꼭? 이래야? 함?
+            // 맞나? 초기화 개념으로 해놓는게 맞는 것 같긴 함.
+            // 그럼 int들은?
+            _name = "";
+            _className = "";
             _item = new();
         }
 

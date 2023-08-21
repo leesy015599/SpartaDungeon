@@ -11,7 +11,9 @@
 			Console.WriteLine((Page.TypeName)(page.Type));
 			Console.WriteLine(page.Info);
 			Console.WriteLine("");
+
 			int optionCount = 0;
+
 			foreach (string option in page.OptionList)
 			{
 				Console.WriteLine($"{optionCount++}. {option}");
@@ -38,7 +40,7 @@
 				if (int.TryParse(input, out parsedInput))
 				{
 					if ((0 <= parsedInput)
-						&& (parsedInput < page.ListSize()))
+						&& (parsedInput < page.OptionCount()))
 					{
 						return parsedInput;
 					}
@@ -47,7 +49,5 @@
 			return Define.wrongInput;
 		}
 	}
-
-
 }
 
