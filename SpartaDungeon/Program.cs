@@ -1,51 +1,27 @@
 ﻿namespace SpartaDungeon;
 
-static class Define
-{
-    public const int wrongInput = -1;
-}
-
-public class Default
-{
-    static public Character SetCharacter()
-    {
-        Character character = new();
-
-
-
-    }
-}
-
 class Program
 {
     static int currentPageType;
-    static Page currentPage;
-    static Display display = new();
+    static Page currentPage = new();
+    static ConsoleIO consoleIO = new();
 
     static void Main()
     {
-        currentPageType = (int)Page.Type.Main;
+        currentPageType = (int)Page.TypeName.Main;
         while (true)
         {
-            currentPage = CurrentPage(currentPageType);
-            display.PrintPage(currentPage);
+            currentPage = GetCurrentPage(currentPageType);
+            consoleIO.WritePage(currentPage);
 
             return;
         }
     }
 
-    static Page CurrentPage(int pageType)
+    static Page GetCurrentPage(int type)
     {
-        Page currentPage;
-        switch (pageType)
-        {
-            case (int)Page.Type.Main:
-                currentPage = new Main();
-                break;
-            default: // test
-                currentPage = new Main();
-                break;
-        }
+        Page currentPage = new();
+        currentPage.SetPage((Page.TypeName)type);
         return currentPage;
     }
 }

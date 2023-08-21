@@ -1,9 +1,9 @@
 ﻿namespace SpartaDungeon
 {
-	public class Display
+	public class ConsoleIO
 	{
 		// method
-		public int PrintPage(Page page)
+		public int WritePage(Page page)
 		{
 			if (page.PageName.Length != 0)
 				Console.WriteLine(page.PageName);
@@ -33,7 +33,7 @@
 			while (true)
 			{
 				input = ReadInput(page);
-				if (input != Define.wrongInput)
+				if (input != Constant.wrongInput)
 					return input;
 				
 			}
@@ -45,7 +45,7 @@
 			
 			string? input = Console.ReadLine();
 			if (input == null)
-				return Define.wrongInput;
+				return Constant.wrongInput;
 			if (input.Length == 1)
 			{
 				int parsedInput;
@@ -58,7 +58,7 @@
 					}
 				}
 			}
-			return Define.wrongInput;
+			return Constant.wrongInput;
 		}
 	}
 }

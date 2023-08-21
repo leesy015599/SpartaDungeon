@@ -1,6 +1,6 @@
 ﻿namespace SpartaDungeon
 {
-	public static class Define
+	public static class Constant
 	{
 		public const int wrongInput = -1;
 	}
