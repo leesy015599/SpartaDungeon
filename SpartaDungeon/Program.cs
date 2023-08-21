@@ -6,15 +6,19 @@ class Program
     static Page currentPage = new();
     static ConsoleIO consoleIO = new();
 
+    static Stack<Page> history = new();
+
     static void Main()
     {
         currentPageType = (int)Page.TypeName.Main;
         int input;
-        while (true)
+        bool isGameOver = false;
+        while (!isGameOver)
         {
             Console.Clear();
             currentPage = GetCurrentPage(currentPageType);
-            consoleIO.WritePage(currentPage);
+            history.Push(currentPage);
+            consoleIO.WritePage(history);
             while (true)
             {
                 input = consoleIO.ReadInput(currentPage);
@@ -22,6 +26,7 @@ class Program
                     break;
                 Console.WriteLine("잘못된 입력입니다.");
             }
+            return ;
         }
     }
 

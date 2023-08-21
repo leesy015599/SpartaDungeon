@@ -1,12 +1,13 @@
-﻿namespace SpartaDungeon
+namespace SpartaDungeon
 {
 	public class ConsoleIO
 	{
 		// method
-		public void WritePage(Page page)
+		public void WritePage(Stack<Page> history)
 		{
-			if (page.PageName.Length != 0)
-				Console.WriteLine(page.PageName);
+			Page page = history.Peek();
+			WriteHistory(history);
+			Console.WriteLine("");
 			Console.WriteLine(page.Info);
 			Console.WriteLine("");
 
@@ -16,16 +17,30 @@
 			// 게임 종료, 나가기, 뒤로 가기, 취소 등.
 			if (page.CountOption() > 1)
 			{
-				int optionCount = 1;
-				foreach (string option in page.OptionList)
+				int optionIndex = 0;
+				foreach (Option option in page.OptionList)
 				{
-					Console.WriteLine($"{optionCount++}. {option}");
-					if (optionCount == page.CountOption())
-						break;
+					if (optionIndex != 0)
+					{
+						Console.WriteLine($"{optionIndex}. {option.Name}");
+					}
+					optionIndex++;
 				}
 			}
-			int lastOptionIndex = page.CountOption() - 1;
-			Console.WriteLine($"0. {page.OptionList[lastOptionIndex]}");
+			Console.WriteLine($"0. {page.OptionList[0].Name}");
+		}
+
+		private void WriteHistory(Stack<Page> history)
+		{
+			Page currentPage = new();
+			if (history.TryPeek(out currentPage)) // 이거 왜이럼?
+			{
+				history.Pop();
+				WriteHistory(history);
+			}
+			else
+				return ;
+			Console.Write($" > {currentPage.PageName}");
 		}
 
 		public int ReadInput(Page page)
