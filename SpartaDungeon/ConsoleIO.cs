@@ -3,7 +3,7 @@
 	public class ConsoleIO
 	{
 		// method
-		public int WritePage(Page page)
+		public void WritePage(Page page)
 		{
 			if (page.PageName.Length != 0)
 				Console.WriteLine(page.PageName);
@@ -26,20 +26,9 @@
 			}
 			int lastOptionIndex = page.CountOption() - 1;
 			Console.WriteLine($"0. {page.OptionList[lastOptionIndex]}");
-
-			// 사용자의 선택지 입력
-			int input;
-
-			while (true)
-			{
-				input = ReadInput(page);
-				if (input != Constant.wrongInput)
-					return input;
-				
-			}
 		}
 
-		private int ReadInput(Page page)
+		public int ReadInput(Page page)
 		{
 			Console.Write("원하시는 행동을 입력해주세요.\n>>");
 			

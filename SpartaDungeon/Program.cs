@@ -9,12 +9,19 @@ class Program
     static void Main()
     {
         currentPageType = (int)Page.TypeName.Main;
+        int input;
         while (true)
         {
+            Console.Clear();
             currentPage = GetCurrentPage(currentPageType);
             consoleIO.WritePage(currentPage);
-
-            return;
+            while (true)
+            {
+                input = consoleIO.ReadInput(currentPage);
+                if (input != Constant.wrongInput)
+                    break;
+                Console.WriteLine("잘못된 입력입니다.");
+            }
         }
     }
 
