@@ -22,6 +22,7 @@ class Program
             consoleIO.WritePage(history);
 
             int selectedOption;
+            // Repeat until getting proper input
             while (true)
             {
                 selectedOption = consoleIO.ReadInput(currentPage);
@@ -29,7 +30,8 @@ class Program
                     break;
                 Console.WriteLine("잘못된 입력입니다.");
             }
-            // selectedOption != wrongInput
+
+            // if (selectedOption != wrongInput)
             int optionType = currentPage.OptionList[selectedOption].Type;
             if (((int)Option.TypeName.Main <= optionType)
                 && (optionType <= (int)Option.TypeName.Equipment))
@@ -49,7 +51,7 @@ class Program
                 currentPageType = history.Peek().Type;
                 history.Pop();
             }
-            else
+            else // optionType == GameOver
                 break;
         }
         Console.Clear();

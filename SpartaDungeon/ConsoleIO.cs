@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-
 namespace SpartaDungeon
 {
 	public class ConsoleIO
@@ -34,12 +31,26 @@ namespace SpartaDungeon
 			Console.WriteLine("");
 		}
 
+		private void WriteHistory(Stack<Page> history)
+		{
+			if (history.TryPeek(out _) == false)
+				return ;
+
+			Page currentPage = history.Peek();
+			history.Pop();
+			WriteHistory(history);
+			// 제일 깊은 재귀함수(이 때 page는 메인페이지)부터 출력.
+			Console.Write($" > {currentPage.PageName}");
+			history.Push(currentPage);
+		}
+
 		private void WriteStatus()
 		{
 			Character character = Program.character;
 			List<Character.OwnItemInfo> ownItemList = character.OwnItemList;
 			List<Item> gameItemList = Program.gameItemList;
 
+			// Check item's equipment and calculate extra stat.
 			int extraStrikingPower = 0;
 			int extraDefensivePower = 0;
 
@@ -55,14 +66,18 @@ namespace SpartaDungeon
 				}
 			}
 
+			// Write status on console
 			Console.WriteLine($"Lv. {character.Level / 10}{character.Level % 10}");
 			Console.WriteLine($"{character.Name} ( {character.ClassName} )");
+
 			Console.Write($"공격력 : {character.StrikingPower}");
 			if (extraStrikingPower > 0)
 				Console.Write(" (+{0})", extraStrikingPower);
+
 			Console.Write($"\n방어력 : {character.DefensivePower}");
 			if (extraDefensivePower > 0)
 				Console.Write(" (+{0})", extraDefensivePower);
+				
 			Console.WriteLine($"\n체 력 : {character.HitPoint}");
 			Console.WriteLine($"Gold : {character.Gold} G");
 		}
@@ -108,14 +123,11 @@ namespace SpartaDungeon
 			{
 				// 옵션 개수가 더 적을 경우
 				while (equipPage.CountOption().CompareTo(itemListCount) != 0)
-				{
 					equipPage.AddOption(new Option((int)Option.TypeName.Equipment, ""));
-				}
 			}
 
 			// WriteInventory() 내용에 아이템별 선택지 숫자가 추가된 형태
 			Console.WriteLine("[아이템 목록]");
-
 			int itemCount = 1;
 			foreach (Character.OwnItemInfo ownItem
 					 in Program.character.OwnItemList)
@@ -145,26 +157,11 @@ namespace SpartaDungeon
 				foreach (Option option in page.OptionList)
 				{
 					if ((optionIndex != 0) && (option.Name != ""))
-					{
 						Console.WriteLine($"{optionIndex}. {option.Name}");
-					}
 					optionIndex++;
 				}
 			}
 			Console.WriteLine($"0. {page.OptionList[0].Name}");
-		}
-
-		private void WriteHistory(Stack<Page> history)
-		{
-			if (history.TryPeek(out _) == false)
-				return ;
-
-			Page currentPage = history.Peek();
-			history.Pop();
-			WriteHistory(history);
-			// 제일 깊은 재귀함수(이 때 page는 메인페이지)부터 출력.
-			Console.Write($" > {currentPage.PageName}");
-			history.Push(currentPage);
 		}
 
 		public int ReadInput(Page page)
