@@ -59,6 +59,27 @@ namespace SpartaDungeon
 			}
 			return (int)Page.TypeName.Main;
 		}
+
+		public static void HandleEquipment(int input)
+		{
+			List<Character.OwnItemInfo> itemList = Program.character.OwnItemList;
+			int index = 0;
+			Character.OwnItemInfo thisItem = new();
+			foreach (Character.OwnItemInfo item in itemList)
+			{
+				if (item.ItemNum == input)
+				{
+					thisItem.ItemNum = item.ItemNum;
+					if (item.IsEquipped == true)
+						thisItem.IsEquipped = false;
+					else
+						thisItem.IsEquipped = true;
+					break;
+				}
+				index++;
+			}
+			itemList[index] = thisItem;
+		}
 	}
 }
 

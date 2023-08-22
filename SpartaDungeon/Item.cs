@@ -3,6 +3,7 @@
 	public class Item
 	{
 		// private field
+		private int _num;
 		private string _name;
 		private int _strikingPower;
 		private int _defensivePower;
@@ -10,6 +11,16 @@
 		private string _info;
 
 		// public property
+		public int Num
+		{
+			get { return _num; }
+			set
+			{
+				if ((0 < value) && (value < int.MaxValue))
+					_num = value;
+			}
+		}
+
 		public string Name
 		{
 			get { return _name; }
@@ -59,9 +70,10 @@
 			_info = "";
 		}
 
-		public Item(string name, int strikingPower, int defensivePower,
+		public Item(int num, string name, int strikingPower, int defensivePower,
 					int hitPoint, int price, string info)
 		{
+			_num = num;
 			_name = name;
 			_strikingPower = strikingPower;
 			_defensivePower = defensivePower;

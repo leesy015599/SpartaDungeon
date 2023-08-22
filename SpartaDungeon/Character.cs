@@ -2,6 +2,12 @@
 {
     public class Character
     {
+        public struct OwnItemInfo
+        {
+            public int ItemNum;
+            public bool IsEquipped;
+        }
+
         // private field
         private int _level;
         private string _name;
@@ -10,8 +16,7 @@
         private int _defensivePower;
         private int _hitPoint;
         private int _gold;
-		private List<Item> _itemList;
-        private List<bool> _isEquipped;
+        private List<OwnItemInfo> _ownItemList;
 
         // public property
         public int Level
@@ -77,14 +82,9 @@
             }
         }
 
-        public List<Item> ItemList
+        public List<OwnItemInfo> OwnItemList
         {
-            get { return _itemList; }
-        }
-
-        public List<bool> IsEquipped
-        {
-            get { return _isEquipped; }
+            get { return _ownItemList; }
         }
 
         // constructor
@@ -92,14 +92,12 @@
         {
             _name = "";
             _className = "";
-            _itemList = new();
-            _isEquipped = new();
+            _ownItemList = new();
         }
 
         public Character(int level, string name, string className,
                          int strikingPower, int defensivePower,
-                         int hitPoint, int gold, List<Item> itemList,
-                         List<bool> isEquipped)
+                         int hitPoint, int gold, List<OwnItemInfo> ownItemList)
         {
             _level = level;
             _name = name;
@@ -108,15 +106,16 @@
             _defensivePower = defensivePower;
             _hitPoint = hitPoint;
             _gold = gold;
-            _itemList = itemList;
-            _isEquipped = isEquipped;
+            _ownItemList = ownItemList;
         }
 
         // method
-        public void AddItem(Item item, bool isEquipped)
+        public void AddItem(int itemNum, bool isEquipped)
         {
-            _itemList.Add(item);
-            _isEquipped.Add(isEquipped);
+            OwnItemInfo newItem;
+            newItem.ItemNum = itemNum;
+            newItem.IsEquipped = isEquipped;
+            _ownItemList.Add(newItem);
         }
     }
 }

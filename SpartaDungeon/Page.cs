@@ -54,9 +54,15 @@
 		}
 
 		// method
-		private void AddOption(Option newOption)
+		public void AddOption(Option newOption)
 		{
 			_optionList.Add(newOption);
+		}
+
+		public void RemoveOption()
+		{
+			// This method will be used only in Equipment page.
+			_optionList.Remove(_optionList.Last());
 		}
 
 		public int CountOption()
@@ -114,7 +120,6 @@
 		private void SetEquipment()
 		{
 			_type = (int)Page.TypeName.Equipment;
-			// 경로라고 해야하나,, pageName을 리스트로 구현하는게 나을까?
 			_pageName = "장착 관리";
 			_info = "보유 중인 아이템을 관리할 수 있습니다.";
 			AddOption(new Option((int)Option.TypeName.PreviousPage, "나가기"));
