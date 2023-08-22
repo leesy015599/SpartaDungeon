@@ -10,7 +10,8 @@
         private int _defensivePower;
         private int _hitPoint;
         private int _gold;
-		private List<Item> _item;
+		private List<Item> _itemList;
+        private List<bool> _isEquipped;
 
         // public property
         public int Level
@@ -76,26 +77,46 @@
             }
         }
 
-        public List<Item> Item
+        public List<Item> ItemList
         {
-            get { return _item; }
+            get { return _itemList; }
+        }
+
+        public List<bool> IsEquipped
+        {
+            get { return _isEquipped; }
         }
 
         // constructor
         public Character()
         {
-            // Nullable로 바꾸긴 싫어서 이렇게 해뒀는데 꼭? 이래야? 함?
-            // 맞나? 초기화 개념으로 해놓는게 맞는 것 같긴 함.
-            // 그럼 int들은?
             _name = "";
             _className = "";
-            _item = new();
+            _itemList = new();
+            _isEquipped = new();
+        }
+
+        public Character(int level, string name, string className,
+                         int strikingPower, int defensivePower,
+                         int hitPoint, int gold, List<Item> itemList,
+                         List<bool> isEquipped)
+        {
+            _level = level;
+            _name = name;
+            _className = className;
+            _strikingPower = strikingPower;
+            _defensivePower = defensivePower;
+            _hitPoint = hitPoint;
+            _gold = gold;
+            _itemList = itemList;
+            _isEquipped = isEquipped;
         }
 
         // method
-        public void AddItem(Item item)
+        public void AddItem(Item item, bool isEquipped)
         {
-            _item.Add(item);
+            _itemList.Add(item);
+            _isEquipped.Add(isEquipped);
         }
     }
 }
