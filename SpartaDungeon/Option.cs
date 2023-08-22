@@ -3,9 +3,11 @@ namespace SpartaDungeon
 {
 	public class Option
 	{
+		// private field
 		private int _type;
 		private string _name;
 
+		// public property
 		public int Type
 		{
 			get { return _type; }
@@ -22,6 +24,7 @@ namespace SpartaDungeon
 			set { _name = value; }
 		}
 
+		// enum
 		public enum TypeName
 		{
 			Main,
@@ -32,6 +35,7 @@ namespace SpartaDungeon
 			PreviousPage
 		}
 
+		// constructor
 		public Option()
 		{
 			_name = "";
@@ -44,6 +48,7 @@ namespace SpartaDungeon
 			Name = name;
 		}
 
+		// method
 		public static int GoPage(int type)
 		{
 			switch ((Page.TypeName)type)
@@ -60,14 +65,14 @@ namespace SpartaDungeon
 			return (int)Page.TypeName.Main;
 		}
 
-		public static void HandleEquipment(int input)
+		public static void HandleEquipment(int selectedOption)
 		{
-			List<Character.OwnItemInfo> itemList = Program.character.OwnItemList;
+			List<Character.OwnItemInfo> ownItemList = Program.character.OwnItemList;
 			int index = 0;
 			Character.OwnItemInfo thisItem = new();
-			foreach (Character.OwnItemInfo item in itemList)
+			foreach (Character.OwnItemInfo item in ownItemList)
 			{
-				if (item.ItemNum == input)
+				if (index + 1 == selectedOption)
 				{
 					thisItem.ItemNum = item.ItemNum;
 					if (item.IsEquipped == true)
@@ -78,7 +83,7 @@ namespace SpartaDungeon
 				}
 				index++;
 			}
-			itemList[index] = thisItem;
+			ownItemList[index] = thisItem;
 		}
 	}
 }

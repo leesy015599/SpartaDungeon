@@ -8,12 +8,14 @@ namespace SpartaDungeon
 		// method
 		public void WritePage(Stack<Page> history)
 		{
-			Page page = history.Peek();
 			WriteHistory(history);
 			Console.WriteLine("");
+
+			Page page = history.Peek();
 			Console.WriteLine(page.Info);
 			Console.WriteLine("");
 
+			// Write page's content
 			switch (page.Type)
 			{
 				case (int)Page.TypeName.Status:
@@ -27,6 +29,7 @@ namespace SpartaDungeon
 					break;
 			}
 			Console.WriteLine("");
+
 			WriteOption(page);
 			Console.WriteLine("");
 		}
@@ -35,7 +38,7 @@ namespace SpartaDungeon
 		{
 			Character character = Program.character;
 			List<Character.OwnItemInfo> ownItemList = character.OwnItemList;
-			List<Item> gameItemList = Program.itemList;
+			List<Item> gameItemList = Program.gameItemList;
 
 			int extraStrikingPower = 0;
 			int extraDefensivePower = 0;
@@ -44,10 +47,11 @@ namespace SpartaDungeon
 			{
 				if (item.IsEquipped == true)
 				{
-					if (gameItemList[item.ItemNum - 1].StrikingPower != 0)
-						extraStrikingPower += gameItemList[item.ItemNum - 1].StrikingPower;
-					else if (gameItemList[item.ItemNum - 1].DefensivePower != 0)
-						extraDefensivePower += gameItemList[item.ItemNum - 1].DefensivePower;
+					int itemIndex = item.ItemNum - 1;
+					if (gameItemList[itemIndex].StrikingPower != 0)
+						extraStrikingPower += gameItemList[itemIndex].StrikingPower;
+					else if (gameItemList[itemIndex].DefensivePower != 0)
+						extraDefensivePower += gameItemList[itemIndex].DefensivePower;
 				}
 			}
 
@@ -66,68 +70,75 @@ namespace SpartaDungeon
 		private void WriteInventory()
 		{
 			Console.WriteLine("[아이템 목록]");
+
 			foreach (Character.OwnItemInfo ownItem
 					 in Program.character.OwnItemList)
 			{
-				Item itemInDB = Program.itemList[ownItem.ItemNum - 1];
+				int itemIndex = ownItem.ItemNum - 1;
+				Item item = Program.gameItemList[itemIndex];
+
 				Console.Write("- ");
 				if (ownItem.IsEquipped)
-					Console.Write("{0,-10}", "[E]" + itemInDB.Name);
+					Console.Write("{0,-10}", "[E]" + item.Name);
 				else
-					Console.Write("{0,-10}", itemInDB.Name);
-				if (itemInDB.StrikingPower != 0)
-					Console.Write("|{0,-10}", "공격력 +" + itemInDB.StrikingPower);
-				else if (itemInDB.DefensivePower != 0)
-					Console.Write("|{0,-10}", "방어력 +" + itemInDB.DefensivePower);
-				Console.WriteLine("|{0,-30}", itemInDB.Info);
+					Console.Write("{0,-10}", item.Name);
+				if (item.StrikingPower != 0)
+					Console.Write("|{0,-10}", "공격력 +" + item.StrikingPower);
+				else if (item.DefensivePower != 0)
+					Console.Write("|{0,-10}", "방어력 +" + item.DefensivePower);
+				Console.WriteLine("|{0,-30}", item.Info);
 			}
 		}
 
 		private void WriteEquipment()
 		{
 			Character character = Program.character;
-			List<Character.OwnItemInfo> itemList = character.OwnItemList;
-			Page page = Program.currentPage;
+			List<Character.OwnItemInfo> ownItemList = character.OwnItemList;
+			Page equipPage = Program.currentPage;
 
-			int itemListCount = itemList.Count() + 1;
+			int itemListCount = ownItemList.Count() + 1;
 			// 옵션 개수와 아이템 개수 맞춰주기
-			if (page.CountOption().CompareTo(itemListCount) > 0)
+			if (equipPage.CountOption().CompareTo(itemListCount) > 0)
 			{
 				// 옵션 개수가 더 많을 경우
-				while (page.CountOption().CompareTo(itemListCount) != 0)
-					page.RemoveOption();
+				while (equipPage.CountOption().CompareTo(itemListCount) != 0)
+					equipPage.RemoveOption();
 			}
 			else
 			{
 				// 옵션 개수가 더 적을 경우
-				while (page.CountOption().CompareTo(itemListCount) != 0)
+				while (equipPage.CountOption().CompareTo(itemListCount) != 0)
 				{
-					page.AddOption(new Option((int)Option.TypeName.Equipment, ""));
+					equipPage.AddOption(new Option((int)Option.TypeName.Equipment, ""));
 				}
 			}
 
 			// WriteInventory() 내용에 아이템별 선택지 숫자가 추가된 형태
 			Console.WriteLine("[아이템 목록]");
+
 			int itemCount = 1;
 			foreach (Character.OwnItemInfo ownItem
 					 in Program.character.OwnItemList)
 			{
-				Item itemInDB = Program.itemList[ownItem.ItemNum - 1];
+				int itemIndex = ownItem.ItemNum - 1;
+				Item item = Program.gameItemList[itemIndex];
+
 				Console.Write("- {0} ", itemCount++);
 				if (ownItem.IsEquipped)
-					Console.Write("{0,-10}", "[E]" + itemInDB.Name);
+					Console.Write("{0,-10}", "[E]" + item.Name);
 				else
-					Console.Write("{0,-10}", itemInDB.Name);
-				if (itemInDB.StrikingPower != 0)
-					Console.Write("|{0,-10}", "공격력 +" + itemInDB.StrikingPower);
-				else if (itemInDB.DefensivePower != 0)
-					Console.Write("|{0,-10}", "방어력 +" + itemInDB.DefensivePower);
-				Console.WriteLine("|{0,-30}", itemInDB.Info);
+					Console.Write("{0,-10}", item.Name);
+				if (item.StrikingPower != 0)
+					Console.Write("|{0,-10}", "공격력 +" + item.StrikingPower);
+				else if (item.DefensivePower != 0)
+					Console.Write("|{0,-10}", "방어력 +" + item.DefensivePower);
+				Console.WriteLine("|{0,-30}", item.Info);
 			}
 		}
 
 		private void WriteOption(Page page)
 		{
+			// if option count == 1, the option is exit(gameover, prev page).
 			if (page.CountOption() > 1)
 			{
 				int optionIndex = 0;
@@ -147,10 +158,11 @@ namespace SpartaDungeon
 		{
 			if (history.TryPeek(out _) == false)
 				return ;
-			Page currentPage;
-			currentPage = history.Peek();
+
+			Page currentPage = history.Peek();
 			history.Pop();
 			WriteHistory(history);
+			// 제일 깊은 재귀함수(이 때 page는 메인페이지)부터 출력.
 			Console.Write($" > {currentPage.PageName}");
 			history.Push(currentPage);
 		}

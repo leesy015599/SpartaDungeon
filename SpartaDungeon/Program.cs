@@ -1,43 +1,44 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace SpartaDungeon;
+﻿namespace SpartaDungeon;
 
 class Program
 {
     static int currentPageType = (int)Page.TypeName.Main;
     public static Page currentPage = new();
-    static ConsoleIO consoleIO = new();
     static Stack<Page> history = new();
 
-    public static List<Item> itemList = new();
+    public static List<Item> gameItemList = new();
     public static Character character = new();
 
     static void Main()
     {
-        int input;
         Initialize();
+        ConsoleIO consoleIO = new();
+
         while (true)
         {
             Console.Clear();
             currentPage = GetCurrentPage(currentPageType);
             history.Push(currentPage);
             consoleIO.WritePage(history);
+
+            int selectedOption;
             while (true)
             {
-                input = consoleIO.ReadInput(currentPage);
-                if (input != Constant.wrongInput)
+                selectedOption = consoleIO.ReadInput(currentPage);
+                if (selectedOption != Constant.wrongInput)
                     break;
                 Console.WriteLine("잘못된 입력입니다.");
             }
-            // input != wrongInput
-            int optionType = currentPage.OptionList[input].Type;
-            if (((int)Page.TypeName.Main <= optionType)
-                && (optionType <= (int)Page.TypeName.Equipment))
+            // selectedOption != wrongInput
+            int optionType = currentPage.OptionList[selectedOption].Type;
+            if (((int)Option.TypeName.Main <= optionType)
+                && (optionType <= (int)Option.TypeName.Equipment))
             {
-                if ((optionType == (int)Page.TypeName.Equipment)
+                // if item equipment is changed
+                if ((optionType == (int)Option.TypeName.Equipment)
                     && (currentPageType == (int)Page.TypeName.Equipment))
                 {
-                    Option.HandleEquipment(input);
+                    Option.HandleEquipment(selectedOption);
                     history.Pop();
                 }
                 currentPageType = Option.GoPage(optionType);
@@ -56,15 +57,14 @@ class Program
         return ;
     }
 
-    static void Initialize()
+    private static void Initialize()
     {
-        itemList.Add(new Item(1, "무쇠갑옷", 0, 5, 0, 0, "무쇠로 만들어져 튼튼한 갑옷입니다."));
-        itemList.Add(new Item(2, "낡은 검", 2, 0, 0, 0, "쉽게 볼 수 있는 낡은 검 입니다."));
+        gameItemList.Add(new Item(1, "무쇠갑옷", 0, 5, 0, 0, "무쇠로 만들어져 튼튼한 갑옷입니다."));
+        gameItemList.Add(new Item(2, "낡은 검", 2, 0, 0, 0, "쉽게 볼 수 있는 낡은 검 입니다."));
 
         character = new(1, "이름", "전사", 10, 5, 100, 1500, new());
-        character.AddItem(1, true);
-        character.AddItem(2, true);
-
+        character.AddOwnItem(1, false);
+        character.AddOwnItem(2, false);
     }
 
     static Page GetCurrentPage(int type)

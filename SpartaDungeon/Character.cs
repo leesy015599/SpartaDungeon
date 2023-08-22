@@ -2,12 +2,6 @@
 {
     public class Character
     {
-        public struct OwnItemInfo
-        {
-            public int ItemNum;
-            public bool IsEquipped;
-        }
-
         // private field
         private int _level;
         private string _name;
@@ -87,6 +81,13 @@
             get { return _ownItemList; }
         }
 
+        // struct
+        public struct OwnItemInfo
+        {
+            public int ItemNum;
+            public bool IsEquipped;
+        }
+
         // constructor
         public Character()
         {
@@ -110,7 +111,7 @@
         }
 
         // method
-        public void AddItem(int itemNum, bool isEquipped)
+        public void AddOwnItem(int itemNum, bool isEquipped)
         {
             OwnItemInfo newItem;
             newItem.ItemNum = itemNum;
