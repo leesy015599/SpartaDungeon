@@ -63,10 +63,12 @@ class Program
     {
         gameItemList.Add(new Item(1, "무쇠갑옷", 0, 5, 0, 0, "무쇠로 만들어져 튼튼한 갑옷입니다."));
         gameItemList.Add(new Item(2, "낡은 검", 2, 0, 0, 0, "쉽게 볼 수 있는 낡은 검 입니다."));
+        gameItemList.Add(new Item(3, "도란의 검", 8, 0, 0, 450, "전쟁광: 이 게임에는 흡혈이 없습니다. 개발자 일해라"));
 
-        character = new(1, "이름", "전사", 10, 5, 100, 1500, new());
+        character = new(1, "가렌", "전사", 10, 5, 100, 1500, new());
         character.AddOwnItem(1, false);
         character.AddOwnItem(2, false);
+        character.AddOwnItem(3, false);
     }
 
     static Page GetCurrentPage(int type)
