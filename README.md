@@ -1,6 +1,14 @@
 # SpartaDungeon
 
-## 1. 프로젝트 설명
+## 1. 실행 방법
+
+~~~
+git clone https://github.com/leesy015599/SpartaDungeon.git
+cd SpartaDungeon/SpartaDungeon
+dotnet run
+~~~
+
+## 2. 프로젝트 설명
 > 필수 요구사항을 기본으로 하되 추후에 확장할 가능성을 고려해 설계
 
 ### 1) 클래스 구조
